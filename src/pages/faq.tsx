@@ -38,8 +38,8 @@ export default function FAQ() {
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
-        <meta name="Description" content="Frequently asked questions about Thirty Bob Books ebooks." />
-        <title>F.A.Q - Thirty Bob Books</title>
+        <meta name="Description" content="Frequently asked questions about Thirty Bob Library ebooks." />
+        <title>F.A.Q - Thirty Bob Library</title>
       </Head>
 
       <div className="py-35px px-0">

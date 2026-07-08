@@ -54,7 +54,7 @@ export default function Header() {
 
       <Link href="/">
         <a className="hidden mx-auto lg:mr-10 lg:flex">
-          <span className="sr-only">Thirty Bob Books</span>
+          <span className="sr-only">Thirty Bob Library</span>
           <Logo width="110px" id="thirty-bob-books-header-logo" />
         </a>
       </Link>

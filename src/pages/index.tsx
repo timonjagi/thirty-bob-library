@@ -27,8 +27,8 @@ export default function Home({ products }) {
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
-        <meta name="Description" content="Thirty Bob Books - Your digital ebook library. Browse, search, and download ebooks." />
-        <title>Thirty Bob Books</title>
+        <meta name="Description" content="Thirty Bob Library - Your digital ebook library. Browse, search, and download ebooks." />
+        <title>Thirty Bob Library</title>
       </Head>
 
       <HeroBlock />
