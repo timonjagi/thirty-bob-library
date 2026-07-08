@@ -12,22 +12,14 @@ async function createRequestRecord(data) {
   }
 
   const { GoogleSpreadsheet } = require('google-spreadsheet');
-  const { JWT } = require('google-auth-library');
-  let privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY;
-  if (!privateKey.includes('\n')) {
-    const body = privateKey
-      .replace('-----BEGIN PRIVATE KEY-----', '')
-      .replace('-----END PRIVATE KEY-----', '')
-      .replace(/\\n/g, '')
-      .trim();
-    privateKey = `-----BEGIN PRIVATE KEY-----\n${body}\n-----END PRIVATE KEY-----\n`;
-  }
-  const serviceAccountAuth = new JWT({
-    email: process.env.GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL,
-    key: privateKey,
-    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+  const { getAccessToken } = require('helpers/google-auth');
+  const token = await getAccessToken(
+    process.env.GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL,
+    process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY
+  );
+  const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID_REQUEST, {
+    token,
   });
-  const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID_REQUEST, serviceAccountAuth);
   await doc.loadInfo();
   const sheet = doc.sheetsByIndex[0];
 

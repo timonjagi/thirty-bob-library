@@ -13,6 +13,7 @@
   "dependencies": {
     "google-auth-library": "^10.1.0",
     "google-spreadsheet": "^4.0.0",
+    "googleapis": "^173.0.0",
     "localforage": "^1.9.0",
     "next": "^14.2.0",
     "overlayscrollbars": "^1.13.0",
