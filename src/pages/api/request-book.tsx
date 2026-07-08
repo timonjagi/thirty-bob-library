@@ -23,18 +23,17 @@ async function createRequestRecord(data) {
   }
 
   const { GoogleSpreadsheet } = require('google-spreadsheet');
-  const { GoogleAuth } = require('google-auth-library');
-  const privateKey = await normalizePrivateKey(
+  const { getAccessToken } = require('helpers/google-auth');
+  const privateKey = normalizePrivateKey(
     process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY
   );
-  const auth = new GoogleAuth({
-    credentials: {
-      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL,
-      private_key: privateKey,
-    },
-    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+  const token = await getAccessToken(
+    process.env.GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL,
+    privateKey
+  );
+  const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID_REQUEST, {
+    token,
   });
-  const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID_REQUEST, auth);
   await doc.loadInfo();
   const sheet = doc.sheetsByIndex[0];
 
