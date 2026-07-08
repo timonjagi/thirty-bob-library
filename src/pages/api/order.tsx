@@ -1,3 +1,14 @@
+async function normalizePrivateKey(key) {
+  if (!key) return key;
+  return key
+    .replace(/\\n/g, '\n')
+    .replace(/\\r/g, '')
+    .replace(/\r\n/g, '\n')
+    .replace(/\r/g, '\n')
+    .replace(/\n{2,}/g, '\n')
+    .trim();
+}
+
 async function createDownloadRecord(data) {
   if (
     !(
@@ -13,13 +24,13 @@ async function createDownloadRecord(data) {
 
   const { GoogleSpreadsheet } = require('google-spreadsheet');
   const { GoogleAuth } = require('google-auth-library');
+  const privateKey = await normalizePrivateKey(
+    process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY
+  );
   const auth = new GoogleAuth({
     credentials: {
       client_email: process.env.GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL,
-      private_key: process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(
-        /\\n/gm,
-        '\n'
-      ),
+      private_key: privateKey,
     },
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   });
