@@ -12,13 +12,18 @@ async function createRequestRecord(data) {
   }
 
   const { GoogleSpreadsheet } = require('google-spreadsheet');
-  const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID_REQUEST, {
-    client_email: process.env.GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL,
-    private_key: process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(
-      /\\n/gm,
-      '\n'
-    ),
+  const { GoogleAuth } = require('google-auth-library');
+  const auth = new GoogleAuth({
+    credentials: {
+      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL,
+      private_key: process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(
+        /\\n/gm,
+        '\n'
+      ),
+    },
+    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   });
+  const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID_REQUEST, auth);
   await doc.loadInfo();
   const sheet = doc.sheetsByIndex[0];
 
