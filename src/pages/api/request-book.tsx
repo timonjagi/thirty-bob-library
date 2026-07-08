@@ -1,14 +1,3 @@
-function normalizePrivateKey(key) {
-  if (!key) return key;
-  return key
-    .replace(/\\n/g, '\n')
-    .replace(/\\r/g, '')
-    .replace(/\r\n/g, '\n')
-    .replace(/\r/g, '\n')
-    .replace(/\n{2,}/g, '\n')
-    .trim();
-}
-
 async function createRequestRecord(data) {
   if (
     !(
@@ -23,17 +12,22 @@ async function createRequestRecord(data) {
   }
 
   const { GoogleSpreadsheet } = require('google-spreadsheet');
-  const { getAccessToken } = require('helpers/google-auth');
-  const privateKey = normalizePrivateKey(
-    process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY
-  );
-  const token = await getAccessToken(
-    process.env.GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL,
-    privateKey
-  );
-  const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID_REQUEST, {
-    token,
+  const { JWT } = require('google-auth-library');
+  let privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY;
+  if (!privateKey.includes('\n')) {
+    const body = privateKey
+      .replace('-----BEGIN PRIVATE KEY-----', '')
+      .replace('-----END PRIVATE KEY-----', '')
+      .replace(/\\n/g, '')
+      .trim();
+    privateKey = `-----BEGIN PRIVATE KEY-----\n${body}\n-----END PRIVATE KEY-----\n`;
+  }
+  const serviceAccountAuth = new JWT({
+    email: process.env.GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL,
+    key: privateKey,
+    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   });
+  const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID_REQUEST, serviceAccountAuth);
   await doc.loadInfo();
   const sheet = doc.sheetsByIndex[0];
 
