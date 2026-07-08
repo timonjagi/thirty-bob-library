@@ -1,11 +1,12 @@
-# Thirty Bob Books
+# Thirty Bob Library
 
-A digital ebook library built with Next.js. Browse, search, and download ebooks from your Google Spreadsheet catalog.
+A digital ebook library built with Next.js. Browse, search, request, and download ebooks from your Google Spreadsheet catalog.
 
 ## Features
 
 - Browse ebooks by category
 - Search across titles and authors
+- Request books not yet in the library
 - Download ebooks in multiple formats (PDF, EPUB, MOBI)
 - Cart and checkout flow for free downloads
 
@@ -43,8 +44,9 @@ A digital ebook library built with Next.js. Browse, search, and download ebooks 
 Copy `.env.local.sample` to `.env.local` and fill in your credentials:
 
 ```
-GOOGLE_SPREADSHEET_ID_PRODUCT=your_spreadsheet_id
+GOOGLE_SPREADSHEET_ID_PRODUCT=your_ebooks_spreadsheet_id
 GOOGLE_SPREADSHEET_ID_ORDER=your_orders_spreadsheet_id
+GOOGLE_SPREADSHEET_ID_REQUEST=your_book_requests_spreadsheet_id
 GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL=your-email@project.iam.gserviceaccount.com
 GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----...\n"
 ```
@@ -79,10 +81,22 @@ Open [http://localhost:3000](http://localhost:3000)
 
 | Column | Description |
 |--------|-------------|
-| items | Downloaded ebooks |
+| items | Downloaded ebooks (comma-separated) |
+| name | User name |
 | email | User email |
+| total | Order total |
 | date | Download date |
-| format | Requested format |
+
+### Book Requests Sheet
+
+| Column | Description |
+|--------|-------------|
+| title | Requested book title |
+| author | Author name (optional) |
+| name | Requester name |
+| email | Requester email |
+| notes | Additional notes (optional) |
+| date | Request date |
 
 ## Deployment
 
@@ -93,4 +107,4 @@ bun run build
 vercel deploy
 ```
 
-Set environment variables in your Vercel project settings.
+Set all environment variables in your Vercel project settings.
