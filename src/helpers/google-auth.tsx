@@ -1,9 +1,9 @@
 function reconstructPemKey(rawKey: string): string {
-  if (rawKey.includes('\n')) return rawKey
   const body = rawKey
-    .replace('-----BEGIN PRIVATE KEY-----', '')
-    .replace('-----END PRIVATE KEY-----', '')
-    .replace(/\\n/g, '')
+    .replace(/-----BEGIN PRIVATE KEY-----/g, '')
+    .replace(/-----END PRIVATE KEY-----/g, '')
+    .replace(/\\r\\n|\\n|\\r|\r|\n/g, '')
+    .replace(/\s/g, '')
     .trim()
   return `-----BEGIN PRIVATE KEY-----\n${body}\n-----END PRIVATE KEY-----\n`
 }
