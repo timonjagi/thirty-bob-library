@@ -14,6 +14,17 @@ async function createOrder(data) {
   const { GoogleSpreadsheet } = require('google-spreadsheet');
   const { JWT } = require('google-auth-library');
   let privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY;
+  
+  console.log('KEY DEBUG:', {
+    type: typeof privateKey,
+    length: privateKey?.length,
+    hasNewlines: privateKey?.includes('\n'),
+    hasBackslashN: privateKey?.includes('\\n'),
+    startsWithHeader: privateKey?.startsWith('-----BEGIN'),
+    first50: privateKey?.substring(0, 50),
+    last20: privateKey?.substring(privateKey.length - 20),
+  });
+  
   if (!privateKey.includes('\n')) {
     const body = privateKey
       .replace('-----BEGIN PRIVATE KEY-----', '')
