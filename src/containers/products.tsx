@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import ItemCard from 'components/item-card';
 import { DrawerContext } from 'contexts/drawer/drawer.provider';
+import { useCart } from 'contexts/cart/cart.provider';
 import { useSearch } from 'contexts/search/use-search';
 import { useSearchable } from 'helpers/use-searchable';
 import NotFound from 'assets/icons/not-found';
@@ -11,9 +12,11 @@ const Products = React.forwardRef(
 
     const { searchTerm } = useSearch();
     const searchableItems = useSearchable(items, searchTerm, (item) => [
-      item.title,
-      item.author,
+      item.name,
     ]);
+
+    const { addItem, removeItem, getItem } = useCart();
+
     const showDetails = (item) => {
       dispatch({
         type: 'STORE_PRODUCT_DETAIL',
@@ -38,14 +41,17 @@ const Products = React.forwardRef(
     };
 
     return (
-      <div className="w-full py-10" ref={ref}>
+      <div className="w-full mt-35px xxl:mt-60px px-4 lg:px-35px" ref={ref}>
         {searchableItems.length ? (
-          <div className="grid grid-cols-2 col-gap-3 row-gap-6 md:grid-cols-3 md:col-gap-4 md:row-gap-8 lg:grid-cols-4 lg:col-gap-4 lg:row-gap-10 xxl:grid-cols-5 xxl:col-gap-4 xxl:row-gap-12 2xxl:grid-cols-7 2xxl:col-gap-5 2xxl:row-gap-12">
+          <div className="grid grid-cols-1 col-gap-3 row-gap-3 mt-9 md:grid-cols-2 md:col-gap-4 md:row-gap-4 lg:grid-cols-3 xxl:grid-cols-3 xxl:col-gap-4 xxl:row-gap-4 2xxl:grid-cols-4 large:grid-cols-5">
             {searchableItems.map((item) => (
               <ItemCard
                 key={item.id}
                 item={item}
                 onClick={() => showDetails(item)}
+                value={getItem(item.id)?.quantity}
+                onIncrement={() => addItem(item)}
+                onDecrement={() => removeItem(item)}
               />
             ))}
           </div>
@@ -53,7 +59,7 @@ const Products = React.forwardRef(
           <div className="pt-10px md:pt-40px lg:pt-20px pb-40px">
             <NotFound width="100%" />
             <h3 className="text-24px text-gray-900 font-bold mt-35px mb-0 text-center">
-              No ebooks found :(
+              No product found :(
             </h3>
           </div>
         )}

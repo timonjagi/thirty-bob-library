@@ -3,12 +3,11 @@ import { DrawerContext } from 'contexts/drawer/drawer.provider';
 import ProductDetails from './views/product-details';
 import Cart from './views/cart';
 import Checkout from './views/checkout';
-import RequestBook from './views/request-book';
 import DrawerMenu from './views/menus';
+import RequestBook from './views/request-book';
 
 export const CartDrawer = () => {
   const { state, dispatch } = useContext(DrawerContext);
-
   const handleClose = () =>
     dispatch({
       type: 'SLIDE_CART',
@@ -55,7 +54,6 @@ export const CartDrawer = () => {
 
 export const Drawer = () => {
   const { state, dispatch }: any = useContext(DrawerContext);
-
   const handleClose = () =>
     dispatch({
       type: 'OPEN_MENU',

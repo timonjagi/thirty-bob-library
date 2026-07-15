@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import Head from 'next/head';
-import Layout from 'containers/layout/layout';
-import HeroBlock from 'containers/hero-block';
-import Products from 'containers/products';
-import CallToAction from 'containers/call-to-action';
-import HowItWorks from 'containers/how-it-works';
+import Layout from '../containers/layout/layout';
+import HeroBlock from '../containers/hero-block';
+import HowItWorks from '../containers/how-it-works';
+import Products from '../containers/products';
+import InstagramReview from '../containers/instagram-review';
 import { useRefScroll } from 'helpers/use-ref-scroll';
 import { useSearch } from 'contexts/search/use-search';
 import { getProducts } from 'helpers/get-products';
@@ -27,20 +27,24 @@ export default function Home({ products }) {
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
-        <meta name="Description" content="Thirty Bob Library - Your digital ebook library. Browse, search, and download ebooks." />
+        <meta
+          name="Description"
+          content="Thirty Bob Library — your digital ebook library, request any title and we'll source it for you."
+        />
         <title>Thirty Bob Library</title>
       </Head>
 
       <HeroBlock />
       <HowItWorks />
       <Products items={products} ref={elRef} />
-      <CallToAction />
+      <InstagramReview />
     </Layout>
   );
 }
 
 export async function getServerSideProps() {
   const products = await getProducts();
+
   return {
     props: {
       products,

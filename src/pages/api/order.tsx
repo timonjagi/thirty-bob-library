@@ -1,4 +1,4 @@
-async function createDownloadRecord(data) {
+async function createOrder(data) {
   if (
     !(
       process.env.GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL &&
@@ -28,22 +28,17 @@ async function createDownloadRecord(data) {
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   });
   const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID_ORDER, serviceAccountAuth);
-  await doc.loadInfo();
-  const sheet = doc.sheetsByIndex[0];
+  await doc.loadInfo(); // loads document properties and worksheets
+  const sheet = doc.sheetsByIndex[0]; // or use doc.sheetsById[id]
 
-  const record = {
-    ...data,
-    date: new Date().toISOString(),
-  };
-
-  await sheet.addRow(record);
+  // append rows
+  await sheet.addRow(JSON.parse(data));
 }
-
 export default async (req, res) => {
   const { method } = req;
   if (method === 'POST') {
-    await createDownloadRecord(req.body);
-    res.status(200).json({ message: 'Download recorded successfully' });
+    await createOrder(req.body);
+    res.status(200).json({ message: `successfully added new order` });
   } else {
     res.setHeader('Allow', ['POST']);
     res.status(405).json({ message: `Method ${method} Not Allowed` });

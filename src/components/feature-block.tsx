@@ -29,7 +29,7 @@ const FeatureBLock: React.FC<FeatureBLockProps> = ({
         {counter}
       </span>
       <div className={FeatureContent}>
-        <h3 className={FeatureTitle}>{title}</h3>
+        <span className={FeatureTitle}>{title}</span>
 
         <p className={FeatureDetails}>{description}</p>
       </div>

@@ -10,7 +10,8 @@ module.exports = {
       lg: '1024px',
       xl: '1280px',
       xxl: { min: '1400px' },
-      '2xxl': { min: '1599px' },
+      '2xxl': { min: '1600px' },
+      large: { min: '2100px' },
     },
     boxShadow: {
       header: '0 2px 4px rgba(0,0,0,0.12)',
@@ -50,6 +51,7 @@ module.exports = {
         error: '#ff5b60',
         'gray-f7': '#f7f7f7',
         'gray-3a': '#3a3a3a',
+        'gray-light': '#fafafa',
         'light-yellow': '#feeec8',
         'light-blue': '#ceeffe',
         'light-green': '#d4f8c4',
@@ -60,11 +62,11 @@ module.exports = {
         gray: {
           100: '#f9f9f9',
           200: '#f3f3f3', // Light BG
-          300: '#F1F1F1', // Border
+          300: '#e6e6e6', // Border
           400: '#D5D5D5', // Border Alt
           500: '#999999', // Light Text
           600: '#757575',
-          700: '#5A5A5A', // Normal Text
+          700: '#575757', // Normal Text
           800: '#424242',
           900: '#212121', // Heavy Text
         },
@@ -79,6 +81,14 @@ module.exports = {
       },
       maxWidth: {
         half: '50%',
+        '720px': '720px',
+        '820px': '820px',
+      },
+      maxHeight: {
+        '650px': '650px',
+      },
+      minWidth: {
+        8: '2rem',
       },
       height: {
         drawer: 'calc(100vh - 90px)',
@@ -86,7 +96,7 @@ module.exports = {
       gridColumnStart: {
         '40px': '40px',
       },
-      gridRowEnd: {},
+
       spacing: {
         9: '2.25rem',
         11: '2.75rem',
@@ -95,8 +105,10 @@ module.exports = {
         '5px': '5px',
         '10px': '10px',
         '15px': '15px',
+        '-15px': '-15px',
         '18px': '18px',
         '20px': '20px',
+        '-20px': '-20px',
         '30px': '30px',
         '35px': '35px',
         '40px': '40px',
@@ -109,9 +121,12 @@ module.exports = {
         '95px': '95px',
         '100px': '100px',
         '105px': '105px',
+        '110px': '110px',
         '120px': '120px',
+        '130px': '130px',
         '146px': '146px',
-        '240px': '240px',
+        '200px': '200px',
+        '235px': '235px',
         '320px': '320px',
         '360px': '360px',
         '480px': '480px',
@@ -129,7 +144,6 @@ module.exports = {
         '20px': '20px',
         '25px': '25px',
         '30px': '30px',
-        '35px': '35px',
         '40px': '40px',
         '60px': '60px',
         '62px': '62px',
@@ -137,6 +151,7 @@ module.exports = {
       },
       borderRadius: {
         default: '6px',
+        '9px': '9px',
         '10px': '10px',
         '20px': '20px',
         '30px': '30px',
@@ -149,7 +164,6 @@ module.exports = {
         default: theme('colors.gray.200', 'currentColor'),
       }),
       transitionDuration: {
-        250: '250ms',
         350: '350ms',
       },
     },
@@ -161,5 +175,6 @@ module.exports = {
     textColor: ['responsive', 'hover', 'focus', 'group-hover'],
     borderWidth: ['responsive', 'last', 'hover', 'focus'],
     padding: ['responsive, odd, even'],
+    width: ['responsive', 'hover', 'focus'],
   },
 };

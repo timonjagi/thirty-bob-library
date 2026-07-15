@@ -31,7 +31,12 @@ const IconButton: React.FC<IconButtonProps> = ({
   };
 
   return (
-    <button onClick={onClickHandler} className={classNames} disabled={disabled}>
+    <button
+      onClick={onClickHandler}
+      className={classNames}
+      disabled={disabled}
+      aria-label="button"
+    >
       {children}
     </button>
   );

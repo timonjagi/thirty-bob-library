@@ -1,20 +1,5 @@
 import React from 'react';
-import CollapseBase, { Panel as PanelBase } from 'rc-collapse';
-
-const Collapse = CollapseBase as unknown as React.ComponentType<{
-  accordion?: boolean;
-  className?: string;
-  defaultActiveKey?: string;
-  expandIcon?: (props: { isActive?: boolean }) => React.ReactNode;
-  children?: React.ReactNode;
-}>;
-
-const Panel = PanelBase as unknown as React.ComponentType<{
-  header?: React.ReactNode;
-  headerClass?: string;
-  key?: any;
-  children?: React.ReactNode;
-}>;
+import Collapse, { Panel } from 'rc-collapse';
 
 type AccordionProps = {
   className?: string;
@@ -58,27 +43,28 @@ function expandIcon({ isActive }) {
   );
 }
 
-const Accordion: React.FC<AccordionProps> = ({ className, items = [] }) => {
-  const panels = items.map((item) => (
-    <Panel
-      header={<h3>{item.title}</h3>}
-      headerClass="accordion-title"
-      key={item.id}
-    >
-      <p key={item.id}>{item.details}</p>
-    </Panel>
-  ));
-
-  return (
-    <Collapse
-      accordion={true}
-      className={`accordion ${className}`.trim()}
-      defaultActiveKey="active"
-      expandIcon={expandIcon}
-    >
-      {panels}
-    </Collapse>
-  );
-};
+const Accordion: React.FC<AccordionProps> = ({ className, items = [] }) => (
+  // @ts-expect-error rc-collapse@2 types don't include children — runtime is fine
+  <Collapse
+    accordion={true}
+    className={`accordion ${className}`.trim()}
+    defaultActiveKey="active"
+    expandIcon={expandIcon}
+  >
+    {items.length !== 0 &&
+      items.map((item) => {
+        return (
+          // @ts-expect-error rc-collapse@2 types don't include children
+          <Panel
+            header={<h3>{item.title}</h3>}
+            headerClass="accordion-title"
+            key={item.id}
+          >
+            <p key={item.id}>{item.details}</p>
+          </Panel>
+        );
+      })}
+  </Collapse>
+);
 
 export default Accordion;

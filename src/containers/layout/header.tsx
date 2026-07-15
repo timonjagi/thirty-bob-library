@@ -1,16 +1,29 @@
-import { useContext } from 'react';
+import { useContext, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import PhoneIcon from 'assets/icons/phone';
 import CartIcon from 'assets/icons/cart-icon';
 import Logo from 'assets/icons/logo';
-import Search from 'components/search';
+import Search from 'components/search-outline';
 import { DrawerContext } from 'contexts/drawer/drawer.provider';
+import { StickyContext } from 'contexts/sticky/sticky.provider';
 import { useCart } from 'contexts/cart/cart.provider';
+import { useMedia } from 'helpers/use-media';
 import { useRouter } from 'next/router';
 
 export default function Header() {
   const router = useRouter();
-  const { dispatch }: any = useContext(DrawerContext);
+  const isLargeScreen = useMedia('(min-width: 1024px)');
+  const { dispatch } = useContext(DrawerContext);
+  const {
+    state: { isSticky },
+  } = useContext(StickyContext);
   const { itemsCount } = useCart();
+  const searchRef = useRef(null);
+  useEffect(() => {
+    if (isLargeScreen && isSticky && searchRef.current) {
+      searchRef.current.focus();
+    }
+  }, [isSticky, isLargeScreen]);
 
   const showMenu = () => {
     dispatch({
@@ -55,12 +68,23 @@ export default function Header() {
       <Link href="/">
         <a className="hidden mx-auto lg:mr-10 lg:flex">
           <span className="sr-only">Thirty Bob Library</span>
-          <Logo width="110px" id="thirty-bob-books-header-logo" />
+          <Logo width="180px" id="thirty-bob-library-header-logo" />
         </a>
       </Link>
 
-      <div className="w-full ml-10px mr-20px lg:mr-10 lg:ml-auto lg:flex lg:justify-center">
-        {isHome && <Search />}
+      <div
+        className={`w-full ml-10px mr-20px lg:mr-10 lg:ml-auto transition duration-350 ease-in-out flex justify-center ${
+          isSticky ? 'lg:opacity-100 lg:visible' : 'lg:opacity-0 lg:invisible'
+        }`}
+      >
+        {isHome && <Search ref={searchRef} className="search-outline" />}
+      </div>
+
+      <div className="hidden items-center text-gray-900 mr-10 flex-shrink-0 lg:flex">
+        <PhoneIcon />
+        <span className="font-semibold text-base text-14px ml-3">
+          +1 855-766-5885
+        </span>
       </div>
 
       <button
@@ -68,7 +92,7 @@ export default function Header() {
         onClick={showCart}
         aria-label="cart-button"
       >
-        <CartIcon width="20px" height="20px" />
+        <CartIcon width="20px" height="22px" />
         <span
           className="w-18px h-18px flex items-center justify-center bg-gray-900 text-white absolute rounded-full"
           style={{ fontSize: '10px', top: '-10px', right: '-10px' }}

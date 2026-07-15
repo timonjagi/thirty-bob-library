@@ -55,37 +55,29 @@ export default function ProductDetails() {
           <ArrowLeft />
         </button>
 
-        <h2 className="font-bold text-24px m-0">Book Details</h2>
+        <h2 className="font-bold text-24px m-0">Details</h2>
       </div>
 
       <Scrollbar className="details-scrollbar flex-grow">
         <div className="flex flex-col p-30px pt-0">
           <div className="flex items-center justify-center w-full h-360px overflow-hidden rounded mb-30px">
-            <img src={state.item.cover} alt={`Cover of ${state.item.title}`} />
+            <img src={state.item.image} alt={`${state.item.name}-img`} />
           </div>
 
           <div className="flex flex-col items-start mb-4">
             <span className="text-gray-900 font-semibold mb-2">
-              {state.item.price === '0' || state.item.price === 0 ? 'Free' : (
-                <>
-                  {CURRENCY}
-                  {state.item.price}
-                </>
-              )}
+              {CURRENCY}
+              {state.item.price}
             </span>
-            <span className="mb-1 text-lg font-semibold">{state.item.title}</span>
-            <span className="mb-3 text-sm text-gray-600">by {state.item.author}</span>
+            <span className="mb-3">{state.item.name}</span>
             <p className="flex items-center mb-5">
-              <span className="text-gray-500 text-11px uppercase">
-                {state.item.format}
+              <span className=" text-gray-500 text-11px capitalize">
+                {state.item.type}
               </span>
               <span className="flex bg-gray-500 w-3px h-3px rounded mx-3" />
-              <span className="text-gray-500 text-11px">
-                {state.item.pages} pages
-              </span>
-              <span className="flex bg-gray-500 w-3px h-3px rounded mx-3" />
-              <span className="text-gray-500 text-11px capitalize">
-                {state.item.category}
+              <span className=" text-gray-500 text-11px">
+                {state.item.quantity}{' '}
+                {state.item.quantity > 1 ? 'pieces' : 'piece'}
               </span>
             </p>
 
@@ -108,30 +100,32 @@ export default function ProductDetails() {
 
           <div className="flex w-full flex-col">
             <div className="flex flex-col justify-start full mt-10 pr-30px even:pr-0">
-              <span className="text-gray-500 text-11px mb-2">Author</span>
-              <span className="font-normal text-13px text-gray-900">
-                {state.item.author}
-              </span>
-            </div>
-
-            <div className="flex flex-col justify-start full mt-10 pr-30px even:pr-0">
-              <span className="text-gray-500 text-11px mb-2">Format</span>
-              <span className="font-normal text-13px text-gray-900 uppercase">
-                {state.item.format}
-              </span>
-            </div>
-
-            <div className="flex flex-col justify-start full mt-10 pr-30px even:pr-0">
-              <span className="text-gray-500 text-11px mb-2">Category</span>
+              <span className="text-gray-500 text-11px mb-2">Dosages Form</span>
               <span className="font-normal text-13px text-gray-900 capitalize">
-                {state.item.category}
+                {state.item.type}
               </span>
             </div>
 
             <div className="flex flex-col justify-start full mt-10 pr-30px even:pr-0">
-              <span className="text-gray-500 text-11px mb-2">Language</span>
-              <span className="font-normal text-13px text-gray-900">
-                {state.item.language}
+              <span className="text-gray-500 text-11px mb-2">Dosages</span>
+              <span className="font-normal text-13px text-gray-900 capitalize">
+                {state.item.dosage}
+              </span>
+            </div>
+
+            <div className="flex flex-col justify-start full mt-10 pr-30px even:pr-0">
+              <span className="text-gray-500 text-11px mb-2">
+                Active Substance
+              </span>
+              <span className="font-normal text-13px text-gray-900 capitalize">
+                {state.item.substance}
+              </span>
+            </div>
+
+            <div className="flex flex-col justify-start full mt-10 pr-30px even:pr-0">
+              <span className="text-gray-500 text-11px mb-2">Manufacturer</span>
+              <span className="font-normal text-13px text-gray-900 capitalize">
+                {state.item.manufacturer}
               </span>
             </div>
           </div>

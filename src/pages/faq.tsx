@@ -6,27 +6,27 @@ import Accordion from 'components/accordion';
 const accordionData = [
   {
     id: 1,
-    title: 'How do I download my ebooks?',
+    title: 'How to contact with Customer Service?',
     details:
-      'After completing checkout, you will receive an email with download links for your ebooks. Click the links to download your files in the format you selected.',
+      'Our Customer Experience Team is available 6 days a week and we offer various ways to get in contact.Email and Chat. We try to reply quickly, so you need not to wait too long for a response!.',
   },
   {
     id: 2,
-    title: 'What formats are available?',
+    title: 'App installation failed, how to update system information?',
     details:
-      'We offer ebooks in PDF, EPUB, and MOBI formats. PDF is best for desktop reading, EPUB for most e-readers and mobile devices, and MOBI for older Kindle devices.',
+      'Please read the documentation carefully. We also have some online video tutorials regarding this issue . If the problem remains, Please Open a ticket in the support forum',
   },
   {
     id: 3,
-    title: 'Can I read ebooks offline?',
+    title: 'Website reponse taking time, how to improve?',
     details:
-      'Yes! Once downloaded, you can read your ebooks offline on any device that supports the file format. Simply transfer the file to your device or use a compatible reading app.',
+      'At first, Please check your internet connection . We also have some online video tutorials regarding this issue . If the problem remains, Please Open a ticket in the support forum.',
   },
   {
     id: 4,
-    title: 'Are the ebooks free?',
+    title: 'How do I create a account?',
     details:
-      'Many of our ebooks are available for free. Paid ebooks are priced individually and can be purchased through our secure checkout process.',
+      'If you want to open an account for personal use you can do it over the phone or online. Opening an account online should only take a few minutes.',
   },
 ];
 
@@ -38,11 +38,14 @@ export default function FAQ() {
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
-        <meta name="Description" content="Frequently asked questions about Thirty Bob Library ebooks." />
-        <title>F.A.Q - Thirty Bob Library</title>
+        <meta
+          name="Description"
+          content="Frequently asked questions about Thirty Bob Library, requests, and how our ebook library works."
+        />
+        <title>FAQ — Thirty Bob Library</title>
       </Head>
 
-      <div className="py-35px px-0">
+      <div className="py-35px px-4 md:p-35px">
         <h3 className="w-full flex justify-center mb-30px text-24px text-gray-900 text-center font-semibold">
           F.A.Q
         </h3>

@@ -18,7 +18,7 @@ const menus = [
   {
     id: 1,
     pathname: '/',
-    title: 'Browse Ebooks',
+    title: 'Home',
   },
   {
     id: 2,
@@ -88,12 +88,6 @@ export default function DrawerMenu() {
     });
   };
 
-  const openRequest = () => {
-    dispatch({ type: 'OPEN_MENU', payload: { menu: false } });
-    dispatch({ type: 'SLIDE_CART', payload: { open: true } });
-    dispatch({ type: 'TOGGLE_REQUEST_VIEW', payload: { showRequest: true } });
-  };
-
   return (
     <>
       <div className="flex flex-col w-full h-full">
@@ -101,9 +95,16 @@ export default function DrawerMenu() {
           <Link href="/">
             <a className="flex" onClick={hideMenu}>
               <span className="sr-only">Thirty Bob Library</span>
-              <Logo width="100px" id="thirty-bob-books-menu-logo" />
+              <Logo width="160px" id="thirty-bob-library-menu-logo" />
             </a>
           </Link>
+
+          <div className="flex items-center justify-end ml-auto pl-30px pr-50px text-gray-700 flex-shrink-0 lg:hidden">
+            {/* <PhoneIcon /> */}
+            <span className="font-semibold text-base text-14px ml-3">
+              +1 855-766-5885
+            </span>
+          </div>
 
           <button
             className="w-30px h-30px flex items-center justify-center text-gray-500 absolute right-25px focus:outline-none"
@@ -130,13 +131,22 @@ export default function DrawerMenu() {
                 </a>
               </ActiveLink>
             ))}
-
-            <a
-              className="menu-item relative text-gray-900 pl-30px pr-4 mb-8 transition duration-300 ease-in-out last:mb-0 hover:text-gray-900"
-              onClick={openRequest}
+            <button
+              className="menu-item relative text-gray-900 pl-30px pr-4 mb-8 transition duration-300 ease-in-out last:mb-0 hover:text-gray-900 text-left"
+              onClick={() => {
+                hideMenu();
+                dispatch({
+                  type: 'TOGGLE_REQUEST_VIEW',
+                  payload: { showRequest: true },
+                });
+                dispatch({
+                  type: 'SLIDE_CART',
+                  payload: { open: true },
+                });
+              }}
             >
               Request a Book
-            </a>
+            </button>
           </div>
         </Scrollbar>
 

@@ -21,6 +21,7 @@ const Counter: React.FC<CounterProps> = ({
   className = '',
 }) => {
   const classNames = CounterBase + ' ' + CounterSize[size] + ' ' + className;
+
   return (
     <div className={classNames}>
       <IconButton

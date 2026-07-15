@@ -6,7 +6,7 @@ export const siteTermsAndServices = {
       id: '1',
       title: 'Purpose',
       description:
-        '<p>Little &amp; Big is committed to protecting your privacy because we are committed to valuing people. Our Privacy Policy below sets out how your personal information is collected, used and protected. The&nbsp;<a href="http://demo">Demo Country Privacy Principles</a>&nbsp;also apply to us.</p><br/><p>This Privacy Policy describes our policies and procedures on the collection, holding, use and disclosure of your personal information and should be read together with our&nbsp;Terms and Conditions. By providing your personal information you consent to our collection, use and disclosure of that information in accordance with this Privacy Policy.</p>',
+        "<p>Tim's Apothecary is committed to protecting your privacy. Our Privacy Policy below sets out how your personal information is collected, used and protected. The applicable local privacy laws also apply to us.</p><br/><p>This Privacy Policy describes our policies and procedures on the collection, holding, use and disclosure of your personal information and should be read together with our&nbsp;Terms and Conditions. By providing your personal information you consent to our collection, use and disclosure of that information in accordance with this Privacy Policy.</p>",
     },
     {
       id: '2',
@@ -36,7 +36,7 @@ export const siteTermsAndServices = {
       id: '6',
       title: 'Owner and Data Controller',
       description:
-        '<p>The Commons<br>20-40 demo St,<br>Jon doe NSW 2008<br>Country<br><br>Email: demo@demo.com</p>',
+        '<p>Tim\'s Apothecary<br>[Your street address]<br>[Your city, state, postal code]<br>[Your country]<br><br>Email: [your-email@example.com]</p>',
     },
   ],
 };

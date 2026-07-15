@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import { DrawerContext } from 'contexts/drawer/drawer.provider';
 import ArrowLeft from 'assets/icons/arrow-left';
 import SuccessIcon from 'assets/icons/success-tick';
@@ -32,14 +32,14 @@ export default function OrderSubmit() {
         </div>
 
         <div className="flex flex-col items-center px-40px md:px-80px mt-15px">
-          <h3 className="text-center text-18px font-semibold text-gray-900 mb-40px">
-            Download Ready
-          </h3>
+          <h2 className="text-center text-18px font-semibold text-gray-900 mb-40px">
+            Order Confirmation
+          </h2>
           <p className="text-center text-14px font-semibold text-gray-900 mb-1">
-            Thank you for your download!
+            Thank you for your order.
           </p>
           <p className="text-center text-13px text-gray-700">
-            Check your email for download links to your ebooks.
+            We've received your order and will contact you very soon.
           </p>
         </div>
       </div>

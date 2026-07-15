@@ -1,14 +1,22 @@
 import React from 'react';
 import MultiCarousel from 'react-multi-carousel';
+
+import QuoteIcon from 'assets/icons/quote';
 import ChevronLeft from 'assets/icons/chevron-left';
 import ChevronRight from 'assets/icons/chevron-right';
+
 import {
-  ButtonGroupBase,
-  ArrowButtonBase,
-  PrevButtonRadius,
-  NextButtonRadius,
-  CarouselItemBase,
-  CarouselItemImage,
+  TestimonialBase,
+  TestimonialButtonGroupBase,
+  TestimonialArrowButtonBase,
+  TestimonialPrevButtonRadius,
+  TestimonialNextButtonRadius,
+  TestimonialItemImageBase,
+  QuoteBase,
+  TestimonialCarouselItemImage,
+  TestimonialReviewerBase,
+  TestimonialReview,
+  ReviewerName,
 } from 'components/utils/theme';
 
 type CustomButtonProp = {
@@ -22,9 +30,9 @@ type ButtonGroupProps = {
 };
 
 interface CarouselItemProps {
-  image: string;
-  link?: string;
-  title?: string;
+  image?: string;
+  review: string;
+  name: string;
 }
 
 type CarouselProps = {
@@ -33,6 +41,7 @@ type CarouselProps = {
   infinite?: boolean;
   itemClass?: string;
   className?: string;
+  containerClass?: string;
 };
 
 const PrevButton: React.FC<CustomButtonProp> = ({ onClick, children }) => {
@@ -43,7 +52,7 @@ const PrevButton: React.FC<CustomButtonProp> = ({ onClick, children }) => {
         onClick(e);
       }}
       aria-label="prev-button"
-      className={ArrowButtonBase + ' ' + PrevButtonRadius}
+      className={TestimonialArrowButtonBase + ' ' + TestimonialPrevButtonRadius}
     >
       {children}
     </button>
@@ -57,7 +66,7 @@ const NextButton: React.FC<CustomButtonProp> = ({ onClick, children }) => {
         onClick(e);
       }}
       aria-label="next-button"
-      className={ArrowButtonBase + ' ' + NextButtonRadius}
+      className={TestimonialArrowButtonBase + ' ' + TestimonialNextButtonRadius}
     >
       {children}
     </button>
@@ -66,7 +75,7 @@ const NextButton: React.FC<CustomButtonProp> = ({ onClick, children }) => {
 
 const ButtonGroup: React.FC<ButtonGroupProps> = ({ next, previous }) => {
   return (
-    <div className={ButtonGroupBase}>
+    <div className={TestimonialButtonGroupBase}>
       <PrevButton onClick={() => previous()}>
         <ChevronLeft height="12px" />
       </PrevButton>
@@ -79,19 +88,11 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({ next, previous }) => {
 
 const responsive = {
   desktop: {
-    breakpoint: { max: 3000, min: 1280 },
-    items: 4,
-  },
-  smallScreen: {
-    breakpoint: { max: 1279, min: 851 },
-    items: 3,
-  },
-  tablet: {
-    breakpoint: { max: 850, min: 601 },
+    breakpoint: { max: 3600, min: 981 },
     items: 2,
   },
-  mobile: {
-    breakpoint: { max: 600, min: 0 },
+  tablet: {
+    breakpoint: { max: 980, min: 0 },
     items: 1,
   },
 };
@@ -102,6 +103,7 @@ const Carousel: React.FC<CarouselProps> = ({
   infinite,
   itemClass,
   className,
+  containerClass,
   ...props
 }) => {
   return (
@@ -112,7 +114,7 @@ const Carousel: React.FC<CarouselProps> = ({
       showDots={false}
       slidesToSlide={1}
       infinite={infinite}
-      containerClass="carousel-container"
+      containerClass={containerClass}
       itemClass={itemClass}
       autoPlay={autoPlay}
       autoPlaySpeed={3000}
@@ -124,26 +126,20 @@ const Carousel: React.FC<CarouselProps> = ({
       // use dir ltr when rtl true
     >
       {data.map((item, index) => (
-        <React.Fragment key={index}>
-          {item && item.link ? (
-            <a href={item.link} className={CarouselItemBase}>
-              <span className="sr-only">{item.title}</span>
-              <img
-                src={item.image}
-                className={CarouselItemImage}
-                alt={item.title}
-              />
-            </a>
-          ) : (
-            <div className={CarouselItemBase}>
-              <img
-                src={item.image}
-                className={CarouselItemImage}
-                alt={item.title}
-              />
+        <div className={TestimonialBase} key={index}>
+          <div className={QuoteBase}>
+            <QuoteIcon style={{ width: 100, height: 'auto' }} />
+          </div>
+
+          <h3 className={TestimonialReview}>{item.review}</h3>
+
+          <div className={TestimonialReviewerBase}>
+            <div className={TestimonialItemImageBase}>
+              <img src={item.image} className={TestimonialCarouselItemImage} />
             </div>
-          )}
-        </React.Fragment>
+            <span className={ReviewerName}>{item.name}</span>
+          </div>
+        </div>
       ))}
     </MultiCarousel>
   );

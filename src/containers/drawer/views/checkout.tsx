@@ -1,20 +1,24 @@
 import { useContext, useState } from 'react';
+import NumberFormat from 'react-number-format';
 import { DrawerContext } from 'contexts/drawer/drawer.provider';
 import { Scrollbar } from 'components/scrollbar';
 import ArrowLeft from 'assets/icons/arrow-left';
 import Input from 'components/input';
 import Button from 'components/button';
 import { useCart } from 'contexts/cart/cart.provider';
+import Textarea from 'components/textarea';
 import OrderSubmit from './order-submit';
 import {
   InputBase,
   TextBoxCommonBase,
   TextBoxEnable,
 } from 'components/utils/theme';
-
 const initialState = {
-  email: '',
+  phone_number: '',
   name: '',
+  address: '',
+  postal_code: '',
+  suite: '',
 };
 
 export default function Checkout() {
@@ -35,11 +39,11 @@ export default function Checkout() {
   };
 
   const submitOrder = async () => {
-    const { email, name } = formData;
-    if (!email.trim()) {
+    const { name, address, postal_code, suite, phone_number } = formData;
+    if (!phone_number.trim()) {
       setError({
-        field: 'email',
-        message: 'Email is required for download links',
+        field: 'phone_number',
+        message: 'Phone number is required',
       });
       return;
     }
@@ -50,11 +54,12 @@ export default function Checkout() {
       method: 'POST',
       body: JSON.stringify({
         items: items
-          .map((item) => `${item.title} (${item.format})`)
+          .map((item) => `${item.name} - ${item.quantity}`)
           .toString(),
-        email: email,
-        name: name,
-        total: calculatePrice(),
+        address: `${name} ${address} ${postal_code} ${suite}`,
+        phone_number: phone_number,
+        email: 'email@email.com',
+        bill_amount: calculatePrice(),
       }),
     });
     if (res.status === 200) {
@@ -73,7 +78,6 @@ export default function Checkout() {
       [name]: value,
     });
   };
-
   if (success) {
     return <OrderSubmit />;
   }
@@ -95,24 +99,22 @@ export default function Checkout() {
         <div className="flex flex-col px-30px pt-20px">
           <div className="flex flex-col mb-45px">
             <span className="flex font-semibold text-gray-900 text-18px mb-15px">
-              Download Information
+              Contact Information
             </span>
-            <Input
-              placeholder="Your Name"
-              className="mb-10px"
-              name="name"
-              value={formData.name}
-              onChange={onChange}
+            <NumberFormat
+              format="+1 (###) ###-####"
+              mask="_"
+              placeholder="Mobile Phone Number"
+              className={`${InputBase} ${TextBoxCommonBase} ${TextBoxEnable}`}
+              value={formData.phone_number}
+              onValueChange={({ value }) =>
+                setFormData({
+                  ...formData,
+                  phone_number: value,
+                })
+              }
             />
-            <Input
-              placeholder="Email for download links"
-              className="mb-10px"
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={onChange}
-            />
-            {error?.field === 'email' && (
+            {error?.field === 'phone_number' && (
               <p className="text-12px font-semibold text-error pt-10px pl-15px">
                 {error.message}
               </p>
@@ -121,21 +123,47 @@ export default function Checkout() {
 
           <div className="flex flex-col">
             <span className="flex font-semibold text-gray-900 text-18px mb-15px">
-              Order Summary
+              Shipping Address
             </span>
-            {items.map((item) => (
-              <div key={item.id} className="flex justify-between mb-10px">
-                <span className="text-14px">{item.title}</span>
-                <span className="text-14px text-gray-500 uppercase">{item.format}</span>
-              </div>
-            ))}
+            <Input
+              placeholder="Name"
+              className="mb-10px"
+              name="name"
+              value={formData.name}
+              onChange={onChange}
+            />
+
+            <Textarea
+              placeholder="Enter Address"
+              className="mb-10px"
+              name="address"
+              value={formData.address}
+              onChange={onChange}
+            ></Textarea>
+
+            <div className="flex items-center mb-10px">
+              <Input
+                placeholder="Postal Code"
+                style={{ width: 'calc(50% - 5px)', marginRight: '5px' }}
+                name="postal_code"
+                value={formData.postal_code}
+                onChange={onChange}
+              />
+              <Input
+                placeholder="Apartment, Suite, etc."
+                style={{ width: 'calc(50% - 5px)', marginLeft: '5px' }}
+                name="suite"
+                value={formData.suite}
+                onChange={onChange}
+              />
+            </div>
           </div>
         </div>
       </Scrollbar>
 
       <div className="flex flex-col p-30px">
         <Button className="big w-full" onClick={submitOrder} loading={loading}>
-          Download Ebooks
+          Order Now
         </Button>
       </div>
     </div>

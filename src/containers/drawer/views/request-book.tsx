@@ -1,166 +1,115 @@
 import { useContext, useState } from 'react';
 import { DrawerContext } from 'contexts/drawer/drawer.provider';
-import { Scrollbar } from 'components/scrollbar';
-import ArrowLeft from 'assets/icons/arrow-left';
 import Input from 'components/input';
 import TextArea from 'components/textarea';
-import Button from 'components/button';
-import RequestSubmit from './request-submit';
-
-const initialState = {
-  title: '',
-  author: '',
-  name: '',
-  email: '',
-  notes: '',
-};
 
 export default function RequestBook() {
   const { dispatch } = useContext(DrawerContext);
-  const [formData, setFormData] = useState(initialState);
-  const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [notes, setNotes] = useState('');
 
   const hideRequest = () => {
     dispatch({
       type: 'TOGGLE_REQUEST_VIEW',
-      payload: {
-        showRequest: false,
-      },
+      payload: { showRequest: false },
+    });
+    dispatch({
+      type: 'SLIDE_CART',
+      payload: { open: false },
     });
   };
 
-  const submitRequest = async () => {
-    const { title, author, name, email, notes } = formData;
-    if (!title.trim()) {
-      setError({
-        field: 'title',
-        message: 'Please tell us which book you would like.',
-      });
-      return;
-    }
-    if (!email.trim()) {
-      setError({
-        field: 'email',
-        message: 'Email is required so we can notify you.',
-      });
-      return;
-    }
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setLoading(true);
-
-    const res = await fetch('/api/request-book', {
-      method: 'POST',
-      body: JSON.stringify({
-        title,
-        author,
-        name,
-        email,
-        notes,
-      }),
-    });
-    if (res.status === 200) {
-      setSuccess(true);
-      setLoading(false);
-    } else {
-      setError(true);
+    try {
+      const res = await fetch('/api/request-book', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, author, name, email, notes }),
+      });
+      if (res.ok) {
+        dispatch({
+          type: 'TOGGLE_REQUEST_VIEW',
+          payload: { showRequest: false },
+        });
+        dispatch({
+          type: 'SLIDE_CART',
+          payload: { open: false },
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
       setLoading(false);
     }
   };
-
-  const onChange = (e) => {
-    const { value, name } = e.currentTarget;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  if (success) {
-    return <RequestSubmit />;
-  }
 
   return (
     <div className="flex flex-col w-full h-full">
-      <div className="w-full flex justify-center relative px-30px py-20px">
+      <div className="w-full h-90px bg-gray-100 flex justify-start items-center relative px-30px flex-shrink-0">
+        <h3 className="font-semibold text-22px text-gray-900">Request a Book</h3>
         <button
-          className="w-auto h-10 flex items-center justify-center text-gray-500 absolute top-half -mt-20px left-30px transition duration-300 focus:outline-none hover:text-gray-900"
+          className="w-30px h-30px flex items-center justify-center text-gray-500 absolute right-25px focus:outline-none"
           onClick={hideRequest}
-          aria-label="close"
         >
-          <ArrowLeft />
+          <svg width="12px" viewBox="0 0 12.8 12.8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.536 1.262a.427.427 0 0 0-.606 0L6.4 5.792 1.87 1.262a.427.427 0 0 0-.606.606L5.794 6.4l-4.53 4.53a.427.427 0 0 0 .606.606L6.4 7.006l4.53 4.53a.427.427 0 0 0 .606-.606L7.006 6.4l4.53-4.53a.427.427 0 0 0 0-.606z" fill="currentColor" />
+          </svg>
         </button>
-        <h2 className="font-bold text-24px m-0">Request a Book</h2>
       </div>
 
-      <Scrollbar className="checkout-scrollbar flex-grow">
-        <div className="flex flex-col px-30px pt-20px">
-          <p className="text-14px text-gray-700 mb-20px">
-            Can&apos;t find a title in our library? Let us know and we&apos;ll
-            try to source it for you.
-          </p>
-
-          <div className="flex flex-col mb-20px">
-            <Input
-              placeholder="Book title *"
-              className="mb-10px"
-              name="title"
-              value={formData.title}
-              onChange={onChange}
-            />
-            {error?.field === 'title' && (
-              <p className="text-12px font-semibold text-error pt-10px pl-15px">
-                {error.message}
-              </p>
-            )}
-            <Input
-              placeholder="Author (optional)"
-              className="mb-10px"
-              name="author"
-              value={formData.author}
-              onChange={onChange}
-            />
-            <Input
-              placeholder="Your name"
-              className="mb-10px"
-              name="name"
-              value={formData.name}
-              onChange={onChange}
-            />
-            <Input
-              placeholder="Email for notifications *"
-              className="mb-10px"
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={onChange}
-            />
-            {error?.field === 'email' && (
-              <p className="text-12px font-semibold text-error pt-10px pl-15px">
-                {error.message}
-              </p>
-            )}
-            <TextArea
-              placeholder="Anything else? (optional)"
-              className="mb-10px"
-              name="notes"
-              value={formData.notes}
-              onChange={onChange}
-            />
-            {error === true && (
-              <p className="text-12px font-semibold text-error pt-10px pl-15px">
-                Something went wrong. Please try again.
-              </p>
-            )}
-          </div>
-        </div>
-      </Scrollbar>
-
-      <div className="flex flex-col p-30px">
-        <Button className="big w-full" onClick={submitRequest} loading={loading}>
-          Send Request
-        </Button>
+      <div className="flex-1 overflow-y-auto px-30px py-30px">
+        <p className="text-gray-600 text-14px mb-20px">
+          Can't find what you're looking for? Tell us what you'd like to read and we'll try to source it for you.
+        </p>
+        <form onSubmit={handleSubmit}>
+          <Input
+            label="Book Title"
+            name="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
+          <Input
+            label="Author"
+            name="author"
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+          />
+          <Input
+            label="Your Name"
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <Input
+            label="Your Email"
+            name="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <TextArea
+            label="Additional Notes"
+            name="notes"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-gray-900 text-white text-14px font-semibold px-30px py-14px mt-20px rounded hover:bg-gray-800 transition-colors"
+          >
+            {loading ? 'Submitting...' : 'Submit Request'}
+          </button>
+        </form>
       </div>
     </div>
   );

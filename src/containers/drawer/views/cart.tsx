@@ -35,7 +35,7 @@ export default function Cart() {
     <div className="flex flex-col w-full h-full">
       {items.length ? (
         <>
-          <div className="w-full flex justify-center relative px-30px py-20px border-b border-gray-200">
+          <div className="w-full flex justify-center flex-shrink-0 relative px-30px py-20px border-b border-gray-200">
             <button
               className="w-auto h-10 flex items-center justify-center text-gray-500 absolute top-half -mt-20px left-30px transition duration-300 focus:outline-none hover:text-gray-900"
               onClick={hideCart}
@@ -57,8 +57,8 @@ export default function Cart() {
         <NoItem />
       )}
 
-      <div className="flex flex-col p-30px">
-        <div className="flex items-center justify-between">
+      <div className="flex flex-col flex-shrink-0 p-30px">
+        <div className="flex items-center justify-between mb-20px">
           <span className="font-semibold text-gray-900">
             Subtotal &nbsp;
             <span className="font-normal text-gray-700 text-13px">
@@ -73,7 +73,7 @@ export default function Cart() {
         </div>
 
         <Button
-          className="big mt-20px"
+          className="big flex-shrink-0"
           disabled={!items.length ? true : false}
           onClick={showCheckout}
         >

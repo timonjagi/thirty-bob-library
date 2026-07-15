@@ -3,12 +3,17 @@
 @tailwind components;
 /* purgecss end ignore */
 
+/* Importing scrollbar css */
+@import './scrollbar.css';
+@import './rc-collapse.css';
+
 /* Custom Css starts from here */
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
-  line-height: 1.65;
+  line-height: 1.625;
+  position: relative;
   @apply font-open;
   @apply text-gray-700;
   @apply text-14px;
@@ -102,12 +107,36 @@ button {
   @apply bg-gray-900;
 }
 
-/* Main Content */
-.main-content {
-  display: flex;
-  flex-direction: column;
+/* Hero Section */
+.hero-section {
+  height: calc(100vh - 70px);
+  position: relative;
+}
+
+@media (min-width: 1024px) {
+  .hero-section {
+    height: calc(100vh - 90px);
+    position: relative;
+  }
+}
+
+.hero-section:before {
+  content: '';
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.05);
+  z-index: 1;
+}
+
+/* Cart Counter */
+.cart-counter {
+  position: absolute;
+  bottom: 24px;
+  right: -10px;
 }
 
 /* ScrollBar Height Calc */
@@ -168,7 +197,7 @@ button {
 
 /* Carousel Css */
 @screen lg {
-  .custom-react-multi-carousel-dot-list {
+  .react-multi-carousel-dot-list {
     position: absolute;
     bottom: 74px;
     left: 160px;
@@ -181,7 +210,6 @@ button {
 
 /* Cart */
 .drawer {
-  width: 100%;
   height: 100%;
   max-width: 450px;
   z-index: 22;
@@ -220,17 +248,6 @@ button {
   @apply h-full;
   @apply flex;
   @apply fixed;
-  @apply top-0;
-  @apply left-0;
-}
-
-.component-overlay {
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: 1;
-  @apply w-full;
-  @apply h-full;
-  @apply flex;
-  @apply absolute;
   @apply top-0;
   @apply left-0;
 }

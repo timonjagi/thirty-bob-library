@@ -11,7 +11,6 @@ const ChevronLeft = ({
       viewBox="0 0 8.4 14"
     >
       <path
-        id="chevron-left"
         d="M16.157,6.329l-1.4-1.4-7,7,7,7,1.4-1.4-5.6-5.6Z"
         transform="translate(-7.757 -4.93)"
         fill={color}

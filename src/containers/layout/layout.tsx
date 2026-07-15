@@ -1,6 +1,6 @@
 import Header from './header';
 import Footer from './footer';
-import { Drawer, CartDrawer } from 'containers/drawer/drawer';
+import { Drawer, CartDrawer } from '../drawer/drawer';
 
 const Layout = (props) => (
   <main
@@ -14,13 +14,10 @@ const Layout = (props) => (
     <Drawer />
     <Header />
     <div className="flex flex-col w-full h-full flex-grow">
-      <div className="pt-90px px-3 pb-50px flex-auto md:px-35px">
-        {props.children}
-      </div>
+      <div className="pt-90px flex-auto">{props.children}</div>
       <Footer />
     </div>
     <CartDrawer />
   </main>
 );
-
 export default Layout;
