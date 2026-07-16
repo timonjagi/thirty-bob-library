@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import ItemCard from 'components/item-card';
 import { DrawerContext } from 'contexts/drawer/drawer.provider';
-import { useCart } from 'contexts/cart/cart.provider';
 import { useSearch } from 'contexts/search/use-search';
 import { useSearchable } from 'helpers/use-searchable';
 import NotFound from 'assets/icons/not-found';
@@ -13,9 +12,9 @@ const Products = React.forwardRef(
     const { searchTerm } = useSearch();
     const searchableItems = useSearchable(items, searchTerm, (item) => [
       item.name,
+      item.author,
+      item.category,
     ]);
-
-    const { addItem, removeItem, getItem } = useCart();
 
     const showDetails = (item) => {
       dispatch({
@@ -42,6 +41,7 @@ const Products = React.forwardRef(
 
     return (
       <div className="w-full mt-35px xxl:mt-60px px-4 lg:px-35px" ref={ref}>
+        <h2 className="text-24px text-gray-900 font-bold mb-30px">Our Library</h2>
         {searchableItems.length ? (
           <div className="grid grid-cols-1 col-gap-3 row-gap-3 mt-9 md:grid-cols-2 md:col-gap-4 md:row-gap-4 lg:grid-cols-3 xxl:grid-cols-3 xxl:col-gap-4 xxl:row-gap-4 2xxl:grid-cols-4 large:grid-cols-5">
             {searchableItems.map((item) => (
@@ -49,9 +49,6 @@ const Products = React.forwardRef(
                 key={item.id}
                 item={item}
                 onClick={() => showDetails(item)}
-                value={getItem(item.id)?.quantity}
-                onIncrement={() => addItem(item)}
-                onDecrement={() => removeItem(item)}
               />
             ))}
           </div>
@@ -59,7 +56,7 @@ const Products = React.forwardRef(
           <div className="pt-10px md:pt-40px lg:pt-20px pb-40px">
             <NotFound width="100%" />
             <h3 className="text-24px text-gray-900 font-bold mt-35px mb-0 text-center">
-              No product found :(
+              No books found :(
             </h3>
           </div>
         )}

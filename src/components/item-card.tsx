@@ -1,6 +1,5 @@
 import React from 'react';
 import { CURRENCY } from '../helpers/constants';
-import CounterAlt from './animated-counter';
 import {
   ItemCardBase,
   ItemCardBaseContent,
@@ -13,33 +12,31 @@ import {
   ItemCardRoundedDot,
   ItemCardQuantity,
   ItemCardDetailsButton,
-  ItemCardCounterWrapper,
 } from './utils/theme';
 
 interface ItemProps {
+  id: string;
   image: string;
   name: string;
+  author: string;
   price: number;
-  type: string;
-  quantity: number;
+  format: string;
+  category: string;
+  pages: string;
+  language: string;
+  description: string;
 }
 
 interface ItemCardProps {
   item: ItemProps;
-  value: number;
   onClick?: (e: any) => void;
-  onDecrement?: (e: any) => void;
-  onIncrement?: (e: any) => void;
 }
 
 const ItemCard: React.FC<ItemCardProps> = ({
   item,
   onClick,
-  onDecrement,
-  onIncrement,
-  value,
 }) => {
-  const baseClassName = ItemCardBase + ' ' + (value ? 'shadow-cart' : '');
+  const baseClassName = ItemCardBase;
   return (
     <div className={baseClassName}>
       <div className={ItemCardBaseContent}>
@@ -47,7 +44,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
           <img
             className="object-cover"
             src={item.image}
-            alt={' Alt ' + item.name}
+            alt={`${item.name} cover`}
           />
         </div>
 
@@ -59,22 +56,18 @@ const ItemCard: React.FC<ItemCardProps> = ({
           <span className={ItemCardName}>{item.name}</span>
 
           <div className={ItemCardInformation}>
-            <span className={ItemCardType}>{item.type}</span>
-            <span className={ItemCardRoundedDot} />
-            <span className={ItemCardQuantity}>{item.quantity} Pieces</span>
+            <span className={ItemCardType}>{item.author}</span>
+            {item.format && (
+              <>
+                <span className={ItemCardRoundedDot} />
+                <span className={ItemCardQuantity}>{item.format}</span>
+              </>
+            )}
           </div>
 
           <button className={ItemCardDetailsButton} onClick={onClick}>
             Details
           </button>
-
-          <div className={ItemCardCounterWrapper}>
-            <CounterAlt
-              value={value}
-              onIncrement={onIncrement}
-              onDecrement={onDecrement}
-            />
-          </div>
         </div>
       </div>
     </div>

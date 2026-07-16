@@ -33,14 +33,14 @@ export async function getProducts() {
   const products = rows?.map((row) => ({
     id: row.get('id'),
     name: row.get('name'),
-    image: row.get('image'),
+    author: row.get('author'),
+    image: row.get('cover'),
     description: row.get('description'),
     price: row.get('price'),
-    type: row.get('type'),
-    quantity: row.get('quantity'),
-    dosage: row.get('dosage'),
-    substance: row.get('substance'),
-    manufacturer: row.get('manufacturer'),
+    format: row.get('format'),
+    category: row.get('category'),
+    pages: row.get('pages'),
+    language: row.get('language'),
   }));
   return products;
 }
