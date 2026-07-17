@@ -6,27 +6,33 @@ import Accordion from 'components/accordion';
 const accordionData = [
   {
     id: 1,
-    title: 'How to contact with Customer Service?',
+    title: 'How does Thirty Bob Library work?',
     details:
-      'Our Customer Experience Team is available 6 days a week and we offer various ways to get in contact.Email and Chat. We try to reply quickly, so you need not to wait too long for a response!.',
+      'Thirty Bob Library is an ebook library where you can browse our catalog and request books you\'d like to read. Once you submit a request, we source the ebook and notify you when it\'s available.',
   },
   {
     id: 2,
-    title: 'App installation failed, how to update system information?',
+    title: 'How do I request a book?',
     details:
-      'Please read the documentation carefully. We also have some online video tutorials regarding this issue . If the problem remains, Please Open a ticket in the support forum',
+      'Click the "Request a Book" button on the homepage or in the menu. Fill in the book title, author, your name, and email. We\'ll do our best to find the ebook for you.',
   },
   {
     id: 3,
-    title: 'Website reponse taking time, how to improve?',
+    title: 'How long does it take to get my requested book?',
     details:
-      'At first, Please check your internet connection . We also have some online video tutorials regarding this issue . If the problem remains, Please Open a ticket in the support forum.',
+      'We typically process book requests within 1-3 business days. You\'ll receive an email notification as soon as your requested ebook is available.',
   },
   {
     id: 4,
-    title: 'How do I create a account?',
+    title: 'What formats are the ebooks available in?',
     details:
-      'If you want to open an account for personal use you can do it over the phone or online. Opening an account online should only take a few minutes.',
+      'Our ebooks are available in PDF and EPUB formats, depending on the title. You can see the available format on each book\'s details page.',
+  },
+  {
+    id: 5,
+    title: 'Is there a limit to how many books I can request?',
+    details:
+      'There\'s no limit! You can request as many books as you\'d like. We process each request individually and notify you when each one is ready.',
   },
 ];
 
