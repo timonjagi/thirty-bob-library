@@ -15,6 +15,7 @@ export interface Props {
   className?: string;
   id?: string;
   name?: string;
+  label?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
@@ -43,6 +44,7 @@ const Input = React.forwardRef<
       id,
       value,
       name,
+      label,
       initialValue,
       disabled,
       readOnly,
@@ -87,13 +89,15 @@ const Input = React.forwardRef<
       className;
 
     return (
-      <React.Fragment>
-        <label htmlFor={id} className="sr-only">
-          {name}
-        </label>
+      <div className="mb-16px">
+        {label && (
+          <label htmlFor={name} className="block text-14px font-medium text-gray-700 mb-6px">
+            {label}
+          </label>
+        )}
         <input
           ref={inputRef}
-          type="text"
+          type={props.type || 'text'}
           placeholder={placeholder}
           className={classNames}
           id={name}
@@ -107,7 +111,7 @@ const Input = React.forwardRef<
           name={name}
           {...props}
         />
-      </React.Fragment>
+      </div>
     );
   }
 );
