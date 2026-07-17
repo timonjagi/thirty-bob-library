@@ -50,7 +50,7 @@ export default function HeroBlock() {
       <img
         src={HeroBannerImg.src}
         alt="hero-image"
-        className="w-full h-full hidden md:flex absolute top-0 left-0 object-cover"
+        className="w-full h-full flex absolute top-0 left-0 object-cover"
       />
 
       <div className="flex flex-col relative z-10 justify-center items-center w-full max-w-720px">

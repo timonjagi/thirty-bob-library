@@ -11,7 +11,6 @@ import {
   ItemCardType,
   ItemCardRoundedDot,
   ItemCardQuantity,
-  ItemCardDetailsButton,
 } from './utils/theme';
 
 interface ItemProps {
@@ -36,9 +35,9 @@ const ItemCard: React.FC<ItemCardProps> = ({
   item,
   onClick,
 }) => {
-  const baseClassName = ItemCardBase;
+  const baseClassName = ItemCardBase + ' cursor-pointer hover:shadow-lg';
   return (
-    <div className={baseClassName}>
+    <div className={baseClassName} onClick={onClick} role="button" tabIndex={0}>
       <div className={ItemCardBaseContent}>
         <div className={ItemCardImage}>
           <img
@@ -64,10 +63,6 @@ const ItemCard: React.FC<ItemCardProps> = ({
               </>
             )}
           </div>
-
-          <button className={ItemCardDetailsButton} onClick={onClick}>
-            Details
-          </button>
         </div>
       </div>
     </div>

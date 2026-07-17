@@ -5,7 +5,7 @@ import { DrawerContext } from 'contexts/drawer/drawer.provider';
 import ArrowLeft from 'assets/icons/arrow-left';
 
 export default function ProductDetails() {
-  const [visibility, setVisibility] = useState(false);
+  const [visibility, setVisibility] = useState(true);
   const { state, dispatch } = useContext(DrawerContext);
 
   const toggleVisibility = () => {
