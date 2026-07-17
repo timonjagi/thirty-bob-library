@@ -59,7 +59,7 @@ export default function HeroBlock() {
           <span className="font-bold block">Your Digital Ebook Library</span>
         </h1>
 
-        <p className="font-17px text-gray-100 mb-8 text-center leading-loose" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}>
+        <p className="font-17px text-white mb-8 text-center leading-loose" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}>
           Browse our collection or request any title — we'll source it for you.
         </p>
         <button
