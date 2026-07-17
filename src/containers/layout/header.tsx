@@ -66,9 +66,8 @@ export default function Header() {
       </button>
 
       <Link href="/">
-        <a className="hidden mx-auto lg:mr-10 lg:flex">
-          <span className="sr-only">Thirty Bob Library</span>
-          <Logo width="180px" id="thirty-bob-library-header-logo" />
+        <a className="hidden mx-auto lg:mr-10 lg:flex items-center">
+          <span className="font-bold text-18px text-gray-900">Thirty Bob Library</span>
         </a>
       </Link>
 
@@ -83,7 +82,7 @@ export default function Header() {
       <div className="hidden items-center text-gray-900 mr-10 flex-shrink-0 lg:flex">
         <PhoneIcon />
         <span className="font-semibold text-base text-14px ml-3">
-          +1 855-766-5885
+          +254 704 229502
         </span>
       </div>
 

@@ -102,7 +102,7 @@ export default function DrawerMenu() {
           <div className="flex items-center justify-end ml-auto pl-30px pr-50px text-gray-700 flex-shrink-0 lg:hidden">
             {/* <PhoneIcon /> */}
             <span className="font-semibold text-base text-14px ml-3">
-              +1 855-766-5885
+              +254 704 229502
             </span>
           </div>
 
