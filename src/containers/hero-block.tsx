@@ -53,13 +53,13 @@ export default function HeroBlock() {
         className="w-full h-full flex absolute top-0 left-0 object-cover"
       />
 
-      <div className="flex flex-col relative z-10 justify-center items-center w-full max-w-720px">
-        <h1 className="font-normal font-30px text-white text-center mb-4 drop-shadow-lg">
+      <div className="flex flex-col relative z-10 justify-center items-center w-full max-w-720px bg-black/30 rounded-lg p-6">
+        <h1 className="font-normal font-30px text-white text-center mb-4" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.7)' }}>
           <span className="font-bold">Thirty Bob Library</span>
           <span className="font-bold block">Your Digital Ebook Library</span>
         </h1>
 
-        <p className="font-17px text-gray-200 lg:mb-60px text-center leading-loose drop-shadow-md">
+        <p className="font-17px text-gray-100 mb-8 text-center leading-loose" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}>
           Browse our collection or request any title — we'll source it for you.
         </p>
         <button
