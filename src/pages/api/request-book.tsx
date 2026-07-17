@@ -41,11 +41,16 @@ async function createRequestRecord(data) {
 
 export default async (req, res) => {
   const { method } = req;
-  if (method === 'POST') {
-    await createRequestRecord(req.body);
-    res.status(200).json({ message: 'Book request recorded successfully' });
-  } else {
+  if (method !== 'POST') {
     res.setHeader('Allow', ['POST']);
-    res.status(405).json({ message: `Method ${method} Not Allowed` });
+    return res.status(405).json({ message: `Method ${method} Not Allowed` });
+  }
+
+  try {
+    await createRequestRecord(req.body);
+    res.status(200).json({ message: 'Book request submitted successfully' });
+  } catch (err) {
+    console.error('Request book API error:', err.message);
+    res.status(500).json({ message: err.message || 'Failed to submit request' });
   }
 };
